@@ -28,7 +28,7 @@ print(res.decode('utf-8'))
 while True:
     Input = input('Hey there: ')
     client_multi_socket.send(str.encode(Input))
-    receive_and_print_all_data()
+    receive_and_print_all_data(client_multi_socket)
     # res = client_multi_socket.recv(1024)
     # print(res.decode('utf-8'))
     # res = client_multi_socket.recv(1024)
