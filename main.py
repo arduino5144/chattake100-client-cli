@@ -20,7 +20,7 @@ try:
 except socket.error as e:
     print(str(e))
 
-client_multi_socket.send(str.encode("HELO " + username + ' ' + password))
+client_multi_socket.send(str.encode("/HELO " + username + ' ' + password))
 start_new_thread(receive_and_print_all_data, (client_multi_socket, ))
 # res = client_multi_socket.recv(1024)
 # print(res.decode('utf-8'))
