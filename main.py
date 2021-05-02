@@ -1,14 +1,12 @@
 import socket
+from _thread import *
+
 
 def receive_and_print_all_data(connection):
-    connection.setblocking(1)
-    data = connection.recv(1024)
-    connection.setblocking(0)
-    while len(data) > 1:
-        print(data.decode('utf-8'), end='')
+    while True:
         data = connection.recv(1024)
-    print()
-    connection.setblocking(1)
+        print(data.decode('utf-8'), end='')
+
 
 client_multi_socket = socket.socket()
 host = '127.0.0.1'
@@ -23,12 +21,13 @@ except socket.error as e:
     print(str(e))
 
 client_multi_socket.send(str.encode("HELO " + username + ' ' + password))
-res = client_multi_socket.recv(1024)
-print(res.decode('utf-8'))
+start_new_thread(receive_and_print_all_data, (client_multi_socket, ))
+# res = client_multi_socket.recv(1024)
+# print(res.decode('utf-8'))
 while True:
-    Input = input('Hey there: ')
+    Input = input()
     client_multi_socket.send(str.encode(Input))
-    receive_and_print_all_data(client_multi_socket)
+    # receive_and_print_all_data(client_multi_socket)
     # res = client_multi_socket.recv(1024)
     # print(res.decode('utf-8'))
     # res = client_multi_socket.recv(1024)
